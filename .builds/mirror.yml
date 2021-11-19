@@ -1,6 +1,7 @@
 image: archlinux
 packages:
   - git
+shell: true
 secrets:
   - d0a1f2ce-8dfd-4eb3-afa5-5fd5c908bd79
 environment:
@@ -13,7 +14,7 @@ tasks:
       cd kipos
       sed -i '1i **⚠ This is a mirror of https://sr.ht/~boehs/kipos/. Pull requests are DOA, Evan likes sourcehut.**' README.md
       git add -A
-      git commit --amend -a --no-edit
+      git commit --amend --no-edit
       git remote add thingy $url
       git push thingy main -f
       git status
