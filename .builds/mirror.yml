@@ -1,7 +1,6 @@
 image: archlinux
 packages:
   - git
-shell: true
 secrets:
   - d0a1f2ce-8dfd-4eb3-afa5-5fd5c908bd79
 environment:
@@ -12,6 +11,7 @@ tasks:
   - main: |
       ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
       cd kipos
+      git checkout main
       sed -i '1i **⚠ This is a mirror of https://sr.ht/~boehs/kipos/. Pull requests are DOA, Evan likes sourcehut.**' README.md
       git add -A
       git commit --amend --no-edit
