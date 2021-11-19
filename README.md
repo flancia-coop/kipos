@@ -1,12 +1,22 @@
-# Kipos
+<img align="center" src="./etc/kipos.svg" width="200">
+<br>
 
-Kipos is a restful active static site generator. The idea is a consolidation of posts from multiple services. Some assumptions and goals:
+<img src="./etc/jp.jpg" align="left" height="200" width="auto">
+
+Kipos is a garden centric static site generator. The idea is a consolidation of posts from multiple services. Some assumptions and goals:
+
+* Everything is a garden
+* Sleepy static
+* Configurable
+* Powerful
+
+<br clear="left"/>
 
 ### Everything is a garden
 
-We view Twitter and a Blog as different things. their streams flow at different speeds but ultimately they are both gardens. When we view our internet as a bunch of gardens, it opens up many opportunities for representation of all these gardens blended together, or individually. Do [[pull]] [[Garden Representations]]!
+We have conventionally viewws Twitter and a Blog as different things. their streams flow at different speeds, but ultimately, truely, they are both gardens. When we view our internet as a bunch of gardens, it opens up many opportunities for representation of all these gardens blended together, or individually. Do [[pull]] [[Garden Representations]]!
 
-### Restful and active
+### Sleepy static
 
 Despite being a static site generator, if you leave the daemon running then it will continue to update the static files as new things come in. At any time copy the files elsewhere and use them with zero configuration
 
@@ -35,7 +45,3 @@ Format those exports into garden respesentations:
 - graph
 
 ## High level
-
-1. Seed
-2. Apply seeds to all templates
-3.
