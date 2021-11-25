@@ -1,47 +1,75 @@
-<img align="center" src="./etc/kipos.svg" width="200">
-<br>
+# Kipos
 
-<img src="./etc/jp.jpg" align="left" height="200" width="auto">
+<img src="./etc/jp.jpg" align="left" height="150" width="auto">
 
-Kipos is a garden centric static site generator. The idea is a consolidation of posts from multiple services. Some assumptions and goals:
+Hello, welcome to our abode. The idea and goal of Kipos is to aggregate your decentralized network of content together. For someone new in these parts, this means creating *one* source of truth, be that your Twitter feed, your markdown files, and/or your Spotify listening history — without centralizing your data.
 
-* Everything is a garden
-* Sleepy static
-* Configurable
-* Powerful
+## Theory
 
-<br clear="left"/>
+We have conventionally viewed, for instance, Twitter and a Blog as different things, but ultimately, truly, they are both gardens. When we begin to view our internet as a bunch of gardens, it opens up many opportunities for the representation of all these gardens blended together.
 
-### Everything is a garden
+### Goals
 
-We have conventionally viewws Twitter and a Blog as different things. their streams flow at different speeds, but ultimately, truely, they are both gardens. When we view our internet as a bunch of gardens, it opens up many opportunities for representation of all these gardens blended together, or individually. Do [[pull]] [[Garden Representations]]!
+Let's save the obvious. Sure, our flagship feature is the consolidation of all your things, but what else, and how do we do it?
 
-### Sleepy static
+#### Streams flow at different speeds
 
-Despite being a static site generator, if you leave the daemon running then it will continue to update the static files as new things come in. At any time copy the files elsewhere and use them with zero configuration
+We recognize streams flow at different streams, So we must find a good middle ground between fully static (Hugo), and fully dynamic (Twitter). Our solution is to run a daemon that, when the time is right, builds relevant pages, like new, edited, and dependents (representations). then runs post tasks like syncing to a remote host.
 
-### Configurable
+#### Zero batteries ~~included~~ needed
 
-Everything should be an option
+A big frustration for those who are decentralized is dealing with services that have a huge superiority complex, telling you where your files should live. We don't make any assumptions, and encourage plugin makers to do the same. Sure, provide sane defaults, but don't ever tell the user what they can and can't do, where they can and can't share.
 
-## Plugins
+#### Usable & Configurable
 
-There are three steps
+As a result of our decentralization, Kipos is, unfortunately, configuration-heavy. This is a reality we must accept, but one that we can help reduce. We provide sane defaults through the `std.yml` import, and encourage garden plugin makers to do the same. Once we have achieved all our dreams, we will offer a web UI for configuration, making it easy for anyone to set up kipos, without ever opening a file.
 
-### seed
+#### Slow
 
-Fetch content, make hashmap of metadata. You should export content, but feel no pressure to convert it to HTML. Export what makes sense for the format
+Speed is a silly thing to strive for, if it means taking freedoms away from our users. The daemon's cashe should hopefully reduce the time it takes to build significantly. Once content is fetched, it is stored and never fetched again unless your computer has some serious problems and then well sucks for you your computer has serious problems. The only thing that would be noticeably long is if you change templates causing each page to be rebuilt. If you need breathtaking speed, look at Hugo, ElderJS, and soon possibly astro.
 
-- Plaintext
-- Markdown
-- JSON
-- Html
+## In practice
 
-### resn
+*Enough PR nonsense. This section describes the workflow as we hurry to implement it. It's long, and in debth*
 
-Format those exports into garden respesentations:
+On boot, the dameon will form an single configuration from your decentralized configs, if you have any. It will load all the imported plugin's into memory.
 
-- Stream
-- graph
+Before we continue, some important concepts
 
-## High level
+### Node
+
+a node is one item, a post, commonly. a node is made up of
+
+```
+*
+├─ section
+│  ├─ gardens
+│  │  ├─ markdown_notes
+│  │  │  ├─ config
+│  │  ├─ markdown_biyearly
+│  │  │  ├─ config
+│  ├─ templates
+│  │  ├─ index.html
+│  │  ├─ preview.html
+│  │  ├─ special
+│  │  │  ├─ markdown_biyearly
+│  │  │  │  ├─ anything.html
+```
+
+## Monitization
+
+### Donations
+
+I accept donations at https://flattr.com/@evan.
+
+If that does not flattr you than donate me a kind email.
+
+#### Why flattr
+
+It allows you to pay a single monthly fee and support many great projects at your leasure. It's hard to pick precentages! I hope that in signing up for flattr you will be encouraged to suppport those who deserve it even more than me.
+
+### SaaS
+
+We will eventually host people's daemons, should they need it. It will be offered at the user's choice of price, and will also include webhosting, although we encourage you to do that yourself @ pages.sr.ht.
+
+Until then, consider hosting your daemon with the good people at https://uberspace.de
