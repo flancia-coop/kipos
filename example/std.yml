@@ -1,8 +1,0 @@
-plugins:
-  resn: # resn plugins
-    - graph
-    - stream
-    - seed
-  seed:
-    - local
-    - git

@@ -1,5 +1,7 @@
 # Kipos
 
+> You lovin this readme? great, this is the only part of kipos that exists. At the moment, we have an idea.
+
 <img src="./etc/jp.jpg" align="left" height="150" width="auto">
 
 Hello, welcome to our abode. The idea and goal of Kipos is to aggregate your decentralized network of content together. For someone new in these parts, this means creating *one* source of truth, be that your Twitter feed, your markdown files, and/or your Spotify listening history — without centralizing your data.
@@ -14,59 +16,114 @@ Let's save the obvious. Sure, our flagship feature is the consolidation of all y
 
 #### Streams flow at different speeds
 
-We recognize streams flow at different streams, So we must find a good middle ground between fully static (Hugo), and fully dynamic (Twitter). Our solution is to run a daemon that, when the time is right, builds relevant pages, like new, edited, and dependents (representations). then runs post tasks like syncing to a remote host.
+We recognize streams flow at different speeds, So we must find a good middle ground between fully static (Hugo), and fully dynamic (Twitter). Our solution is to run a daemon that, when the time is right, builds relevant pages, like new, edited, and dependents (representations). It then runs post tasks like syncing to a remote host.
 
 #### Zero batteries ~~included~~ needed
 
-A big frustration for those who are decentralized is dealing with services that have a huge superiority complex, telling you where your files should live. We don't make any assumptions, and encourage plugin makers to do the same. Sure, provide sane defaults, but don't ever tell the user what they can and can't do, where they can and can't share.
+A big frustration for those who are decentralized is dealing with services that have a huge superiority complex, telling you where your files should live. We don't make any assumptions and encourage plugin makers to do the same. Sure, provide sane defaults, but don't ever tell the user what they can and can't do, where they can and can't share.
 
 #### Usable & Configurable
 
-As a result of our decentralization, Kipos is, unfortunately, configuration-heavy. This is a reality we must accept, but one that we can help reduce. We provide sane defaults through the `std.yml` import, and encourage garden plugin makers to do the same. Once we have achieved all our dreams, we will offer a web UI for configuration, making it easy for anyone to set up kipos, without ever opening a file.
+As a result of our decentralization, Kipos is, unfortunately, configuration-heavy, but we strive to make it as intuitive as possible, prioritizing file based layouts. Once we have achieved all our dreams, we will offer a web UI for configuration, making it easy for anyone to set up Kipos, without ever opening a file.
 
 #### Slow
 
-Speed is a silly thing to strive for, if it means taking freedoms away from our users. The daemon's cashe should hopefully reduce the time it takes to build significantly. Once content is fetched, it is stored and never fetched again unless your computer has some serious problems and then well sucks for you your computer has serious problems. The only thing that would be noticeably long is if you change templates causing each page to be rebuilt. If you need breathtaking speed, look at Hugo, ElderJS, and soon possibly astro.
+Speed is a silly thing to strive for if it means taking freedoms away from our users. The daemon's cache should hopefully reduce the time it takes to build significantly. Once content is fetched, it is stored and never fetched again unless your computer has some serious problems and then well sucks for you your computer has serious problems. The only thing that would be noticeably long is if you change templates causing each page to be rebuilt. If you need breathtaking speed, look at Hugo, ElderJS, and soon possibly astro.
 
 ## In practice
 
-*Enough PR nonsense. This section describes the workflow as we hurry to implement it. It's long, and in debth*
-
-On boot, the dameon will form an single configuration from your decentralized configs, if you have any. It will load all the imported plugin's into memory.
-
-Before we continue, some important concepts
+*Enough PR nonsense. This section describes the workflow as we hurry to implement it. It's long, and in depth*
 
 ### Node
 
-a node is one item, a post, commonly. a node is made up of
+A node is one item, a post, commonly. a node is really two concepts, views, and
 
-```
-*
-├─ section
-│  ├─ gardens
-│  │  ├─ markdown_notes
-│  │  │  ├─ config
-│  │  ├─ markdown_biyearly
-│  │  │  ├─ config
-│  ├─ templates
-│  │  ├─ index.html
-│  │  ├─ preview.html
-│  │  ├─ special
-│  │  │  ├─ markdown_biyearly
-│  │  │  │  ├─ anything.html
+#### Metadata
+
+For each node, unstructured JSON-like data is created at will, containing whatever the plugin author wants. Typically, this will look like:
+
+```json
+{
+    "metadata": {
+        ...
+    },
+    "content": """"""
+}
 ```
 
-## Monitization
+Content is whatever format makes sense, Markdown, JSON, Etc. This is for Gemini support and other abstract exports (did you know we are not a static site generator but just a static generator?).
 
+Internally, this *is* the `node`, `nodes` is an array of these objects.
+
+#### View
+
+a view is a way to represent that node, under `views/`. Views support folders, etc, and the final filesystem will generally reflect the structure of views.
+
+```
+# note, most of this can be configured, if you want an unorganized pile of shit set all paths to `./` in config.
+./
+├─ md_section
+│  ├─ md_notes
+│  │  ├─ node1
+│  │  │  ├─ index.html
+│  │  │  ├─ preview.html
+│  │  ├─ node2
+│  │  │  ├─ ...
+│  ├─ md_biyearly
+│  │  ├─ ...
+```
+
+There is one reserved folder in `views`, that is `special`, and inside of special folders can be created with the same garden name. Depending on the garden the node comes from, the views contained within `special/nodesgarden` will be rendered as if they were outside in the normal views directory. If for some reason you need the name `special`, feel free to change the dir config to `"eeeeeeeeeeeeee"` or something.
+
+The actual file layout looks like
+
+```
+۞
+├─ layout
+|  ├─ md_section
+│  │  ├─ gardens
+│  │  │  ├─ md_notes
+│  │  │  │  ├─ config
+│  │  │  ├─ md_biyearly
+│  │  │  │  ├─ config
+│  │  ├─ views
+│  │  │  ├─ index.html
+│  │  │  ├─ preview.html
+│  │  │  ├─ special
+│  │  │  │  ├─ markdown_biyearly
+│  │  │  │  │  ├─ anything.html
+```
+
+Working our way up, we find:
+
+### Gardens
+
+A garden is a place, somewhere. Your Twitter account, a blog you run, anything else.
+
+Each section can have multiple gardens, and each garden generates a list of nodes from somewhere. Not much exciting.
+
+### Section
+
+Sections contain gardens and views.
+
+Lots of gardens you might have are similar. They are distinct, sure, but ought to be rendered similarly. Had we integrated views as a part of gardens, this would cause serious duplication. On the other hand, small distinctions are often needed, so we provide the `special` folder. Sections are a good middle ground.
+
+---
+
+## Monetization
+
+Kipos has always, will always be freeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee.
+
+<!-->
 ### Donations
 
-I accept donations at https://flattr.com/@evan.
+I accept donations at https://flattr.com/@evan. Of course, these donations allow me to dedicate more time to Kipos, writing, and the greater flancia.
 
-If that does not flattr you than donate me a kind email.
+If that does not Flattr you, donate me a kind email.
 
 #### Why flattr
 
-It allows you to pay a single monthly fee and support many great projects at your leasure. It's hard to pick precentages! I hope that in signing up for flattr you will be encouraged to suppport those who deserve it even more than me.
+It allows you to pay a single monthly fee and support many great projects at your leisure. It's hard to pick percentages! I hope that by signing up for Flattr you will be encouraged to support those who deserve it more than me.
 
 ### SaaS
 
