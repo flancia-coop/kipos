@@ -1,3 +1,4 @@
+**⚠ This is a mirror of https://sr.ht/~boehs/kipos/. Pull requests are DOA, Evan likes sourcehut.**
 # Kipos
 
 > You lovin this readme? great, this is the only part of kipos that exists. At the moment, we have an idea.

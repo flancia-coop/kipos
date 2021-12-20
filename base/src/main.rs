@@ -2,6 +2,7 @@ mod layout;
 
 use std::{fs, collections::HashMap, fmt::Debug, path::PathBuf};
 
+use layout::garden::Garden;
 use serde::{self, Deserialize};
 use serde_yaml;
 use tera;
@@ -69,9 +70,14 @@ fn main() {
     if let Some(yaml) = parse_config() {
         match serde_yaml::from_str::<Config>(&yaml) {
             Ok(t) => {
-                for garden in t.gardens.iter() {
-                    println!("{:?}",garden);
-                    config(garden)
+                let mut registrar: HashMap<u8, Vec<GardenConfig>> = HashMap::new();
+                for garden in t.gardens.into_iter() {
+                    config(&garden);
+                    if !registrar.contains_key(&garden.level) {
+                        registrar.insert(garden.level, vec![]);
+                    }
+                    let e = registrar.get(&garden.level).unwrap();
+                    e.push(garden);
                 }
             },
             Err(e) => eprintln!("{}",e)

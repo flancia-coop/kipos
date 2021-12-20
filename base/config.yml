@@ -1,0 +1,26 @@
+gardens: [
+  {
+    level: 1,
+    plugin: md,
+    path: ./bob,
+    children: [
+      {
+        level: 1,
+        plugin: md,
+        path: ./joe,
+        children: [
+          {
+            level: 2,
+            plugin: md,
+            path: ./a
+          },
+          {
+            level: 2,
+            plugin: md,
+            path: ./b
+          }
+        ]
+      }
+    ]
+  }
+]

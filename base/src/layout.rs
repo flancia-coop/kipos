@@ -2,6 +2,10 @@
 //!
 //! Don't copy and paste code from here, it's kinda a final project structure if you will
 
+fn main() {
+    unimplemented!()
+}
+
 pub mod config {
     use super::plugin::PluginType;
     use std::{any::Any, collections::HashMap};
@@ -12,6 +16,7 @@ pub mod config {
     /// It contains certain features relevent to the site like plugins.
     ///
     /// Do note the docs of [GardenConfig]
+
     struct Config<'a> {
         plugins: HashMap<String, PluginType>,
         flags: HashMap<&'a str, Box<dyn Any>>,
@@ -24,6 +29,7 @@ pub mod config {
         level: u8,
         flags: HashMap<&'a str, Box<dyn Any>>,
         children: Option<Vec<GardenConfig<'a>>>
+
     }
 }
 
