@@ -1,5 +1,7 @@
 **⚠ This is a mirror of https://sr.ht/~boehs/kipos/. Pull requests are DOA, Evan likes sourcehut.**
 # Kipos
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fflancia-coop%2Fkipos.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fflancia-coop%2Fkipos?ref=badge_shield)
+
 
 > You lovin this readme? great, this is the only part of kipos that exists. At the moment, we have an idea.
 
@@ -131,3 +133,7 @@ It allows you to pay a single monthly fee and support many great projects at you
 We will eventually host people's daemons, should they need it. It will be offered at the user's choice of price, and will also include webhosting, although we encourage you to do that yourself @ pages.sr.ht.
 
 Until then, consider hosting your daemon with the good people at https://uberspace.de
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fflancia-coop%2Fkipos.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fflancia-coop%2Fkipos?ref=badge_large)
